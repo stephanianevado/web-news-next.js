@@ -1,51 +1,43 @@
-import {server} from '../../../config'
 import Link from 'next/link'
 import Meta from '../../../components/Meta'
 import dataStyles from '../../../styles/Data.module.css'
+import { articles } from '../../../data'
 
-
-const article = ({article}) => {
-    return (
-        <>
-            <Meta title={article.title} description={article.excerpt}/>
-            <div className={dataStyles.card}>
-                <h1>{article.title}</h1>
-                <p>{article.body}</p>
-                <br/>
-            </div>
-            <div className={dataStyles.card}>
-                <Link href='/'>Go Back</Link>
-            </div>
-        </>
-    )
+const Article = ({ article }) => {
+  return (
+    <>
+      <Meta title={article.title} description={article.excerpt} />
+      <div className={dataStyles.card}>
+        <h1>{article.title}</h1>
+        <p>{article.body}</p>
+        <br />
+      </div>
+      <div className={dataStyles.card}>
+        <Link href="/">Go Back</Link>
+      </div>
+    </>
+  )
 }
 
 export const getStaticProps = async (context) => {
-    const res = await fetch(`${server}/api/articles/${context.params.id}`)
+  const id = context.params.id
+  const filtered = articles.filter((article) => article.id === id)
 
-    const article = await res.json()
-
-    return {
-        props: {
-            article,
-        },
-    }
+  return {
+    props: {
+      article: filtered[0],
+    },
+  }
 }
 
 export const getStaticPaths = async () => {
-    const res = await fetch(`${server}/api/articles`)
-    console.log('ninaaaa')
-    console.log(process.env.NODE_ENV)
+  const ids = articles.map((article) => article.id)
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }))
 
-    const articles = await res.json()
-
-    const ids = articles.map((article) => article.id)
-    const paths = ids.map((id) => ({params: {id: id.toString()}}))
-
-    return {
-        paths,
-        fallback: false,
-    }
+  return {
+    paths,
+    fallback: false,
+  }
 }
 
-export default article
+export default Article
