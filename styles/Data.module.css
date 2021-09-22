@@ -1,0 +1,49 @@
+.grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin-top: 3rem;
+}
+
+.card {
+    margin: 1rem;
+    flex-basis: 45%;
+    padding: 1.5rem;
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid #64FFDA;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.card a:hover,
+.card a:focus,
+.card a:active {
+    color: #64FFDA;
+    border-color: #64FFDA;
+}
+
+.card h1 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    color:#64FFDA;
+}
+
+.card p {
+    margin: 0;
+    padding: 3rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+
+@media (max-width: 600px) {
+    .grid {
+        width: 100%;
+        flex-direction: column;
+    }
+}
