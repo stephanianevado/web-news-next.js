@@ -34,6 +34,8 @@ export const getStaticProps = async (context) => {
 
 export const getStaticPaths = async () => {
     const res = await fetch(`${server}/api/articles`)
+    console.log('ninaaaa')
+    console.log(process.env.NODE_ENV)
 
     const articles = await res.json()
 
